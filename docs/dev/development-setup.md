@@ -18,7 +18,7 @@ Other helpful commands:
 
 We use [Protocol Buffers](https://developers.google.com/protocol-buffers) along with [buf](https://docs.buf.build/introduction) and [gogoproto](https://github.com/gogo/protobuf) to generate code for use in ibc-go.
 
-For determinstic behavior around protobuf tooling, everything is containerized using Docker. Make sure to have Docker installed on your machine, or head to [Docker's website](https://docs.docker.com/get-docker/) to install it.
+For deterministic behavior around protobuf tooling, everything is containerized using Docker. Make sure to have Docker installed on your machine, or head to [Docker's website](https://docs.docker.com/get-docker/) to install it.
 
 For formatting code in `.proto` files, you can run the `make proto-format` command.
 
@@ -32,7 +32,7 @@ To update third-party protobuf dependencies, you can run `make proto-update-deps
 
 For generating or updating the swagger file that documents the URLs of the RESTful API that exposes the gRPC endpoints over HTTP, you can run the `proto-swagger-gen` command.
 
-It reads protobuf service definitions and generates a reverse-proxy server which translates a RESTful HTTP API into gRPC. 
+It reads protobuf service definitions and generates a reverse-proxy server which translates a RESTful HTTP API into gRPC.
 
 ## Developing and testing
 
@@ -42,6 +42,7 @@ It reads protobuf service definitions and generates a reverse-proxy server which
 - No `--force` onto `main` (except when reverting a broken commit, which should seldom happen).
 - Create a development branch either on `github.com/cosmos/ibc-go`, or your fork (using `git remote add fork`).
 - Before submitting a pull request, begin `git rebase` on top of `main`.
+- Ensure you are using the pre-commit hooks by running `make setup-pre-commit`.
 
 All Go tests in ibc-go can be ran by running `make test`.
 
@@ -51,10 +52,11 @@ When testing a function under a variety of different inputs, we prefer to use [t
 
 All unit tests should use the testing package. Please see the testing package [README](../../testing/README.md) for more information.
 
-Test coverage is continuously deployed at https://app.codecov.io/github/cosmos/ibc-go. PRs that improve test coverage are welcome, but in general the test coverage should be used as a guidance for finding API use cases that are not covered by tests. We don't recommend adding tests that only improve coverage but not actually test a meaning use case.
+Test coverage is continuously deployed at [SonarCloud](https://sonarcloud.io/project/overview?id=cosmos_ibc-go). PRs that improve test coverage are welcome, but in general the test coverage should be used as a guidance for finding API use cases that are not covered by tests. We don't recommend adding tests that only improve coverage but not actually test a meaning use case.
 
 ## Documentation
 
 - If you open a PR on ibc-go, it is mandatory to update the relevant documentation in `/docs`.
+- We lint the markdown files for documentation with [markdownlint-cli](https://github.com/igorshubovych/markdownlint-cli). Please run `make docs-lint` before pushing changes in the markdown files (you will need to have `markdownlint-cli` installed, so please follow the [installation instructions](https://github.com/igorshubovych/markdownlint-cli#installation)).
 - Generate the folder `docs/.vuepress/dist` with all the static files for the documentation site with `make build-docs`.
 - Run the documentation site locally with `make view-docs`.

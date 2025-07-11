@@ -5,12 +5,12 @@
 - 2019 Oct 22: Initial Draft
 
 ## Context
- 
+
 [ICS 26 - Routing Module](https://github.com/cosmos/ibc/tree/master/spec/core/ics-026-routing-module) defines a function [`handlePacketRecv`](https://github.com/cosmos/ibc/tree/master/spec/core/ics-026-routing-module#packet-relay).
 
 In ICS 26, the routing module is defined as a layer above each application module
 which verifies and routes messages to the destination modules. It is possible to
-implement it as a separate module, however, we already have functionality to route
+implement it as a separate module, however, we already have the functionality to route
 messages upon the destination identifiers in the baseapp. This ADR suggests
 to utilize existing `baseapp.router` to route packets to application modules.
 
@@ -96,7 +96,7 @@ func (pvr ProofVerificationDecorator) AnteHandle(ctx Context, tx Tx, simulate bo
       err = pvr.clientKeeper.UpdateClient(msg.ClientID, msg.Header)
     case channel.MsgPacket:
       err = pvr.channelKeeper.RecvPacket(msg.Packet, msg.Proofs, msg.ProofHeight)
-    case chanel.MsgAcknowledgement:
+    case channel.MsgAcknowledgement:
       err = pvr.channelKeeper.AcknowledgementPacket(msg.Acknowledgement, msg.Proof, msg.ProofHeight)
     case channel.MsgTimeoutPacket:
       err = pvr.channelKeeper.TimeoutPacket(msg.Packet, msg.Proof, msg.ProofHeight, msg.NextSequenceRecv)
@@ -154,20 +154,20 @@ func (keeper ChannelKeeper) DeleteCommitmentTimeout(ctx Context, packet Packet) 
 Each application handler should call respective finalization methods on the `PortKeeper`
 in order to increase sequence (in case of packet) or remove the commitment
 (in case of acknowledgement and timeout).
-Calling those functions implies that the application logic has successfully executed. 
+Calling those functions implies that the application logic has successfully executed.
 However, the handlers can return `Result` with `CodeTxBreak` after calling those methods
-which will persist the state changes that has been already done but prevent any further 
+which will persist the state changes that has been already done but prevent any further
 messages to be executed in case of semantically invalid packet. This will keep the sequence
-increased in the previous IBC packets(thus preventing double execution) without 
+increased in the previous IBC packets(thus preventing double execution) without
 proceeding to the following messages.
-In any case the application modules should never return state reverting result, 
+In any case the application modules should never return state reverting result,
 which will make the channel unable to proceed.
 
-`ChannelKeeper.CheckOpen` method will be introduced. This will replace `onChanOpen*` defined 
+`ChannelKeeper.CheckOpen` method will be introduced. This will replace `onChanOpen*` defined
 under the routing module specification. Instead of define each channel handshake callback
 functions, application modules can provide `ChannelChecker` function with the `AppModule`
 which will be injected to `ChannelKeeper.Port()` at the top level application.
-`CheckOpen` will find the correct `ChennelChecker` using the
+`CheckOpen` will find the correct `ChannelChecker` using the
 `PortID` and call it, which will return an error if it is unacceptable by the application.
 
 The `ProofVerificationDecorator` will be inserted to the top level application.
@@ -176,7 +176,7 @@ logic, whereas application can misbehave(in terms of IBC protocol) by
 mistake.
 
 The `ProofVerificationDecorator` should come right after the default sybil attack
-resistent layer from the current `auth.NewAnteHandler`:
+resistant layer from the current `auth.NewAnteHandler`:
 
 ```go
 // add IBC ProofVerificationDecorator to the Chain of
@@ -295,5 +295,5 @@ Proposed
 
 ## References
 
-- Relevant comment: [cosmos/ics#289](https://github.com/cosmos/ics/issues/289#issuecomment-544533583)
+- Relevant comment: [cosmos/ics#289](https://github.com/cosmos/ibc/issues/289#issuecomment-544533583)
 - [ICS26 - Routing Module](https://github.com/cosmos/ibc/tree/master/spec/core/ics-026-routing-module)
