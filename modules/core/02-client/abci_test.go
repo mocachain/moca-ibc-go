@@ -4,16 +4,22 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/stretchr/testify/suite"
+	testifysuite "github.com/stretchr/testify/suite"
 
-	client "github.com/cosmos/ibc-go/v7/modules/core/02-client"
-	"github.com/cosmos/ibc-go/v7/modules/core/02-client/types"
-	ibctesting "github.com/cosmos/ibc-go/v7/testing"
+	upgradetypes "cosmossdk.io/x/upgrade/types"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
+
+	cmtproto "github.com/cometbft/cometbft/proto/tendermint/types"
+
+	client "github.com/cosmos/ibc-go/v10/modules/core/02-client"
+	"github.com/cosmos/ibc-go/v10/modules/core/02-client/types"
+	ibctm "github.com/cosmos/ibc-go/v10/modules/light-clients/07-tendermint"
+	ibctesting "github.com/cosmos/ibc-go/v10/testing"
 )
 
 type ClientTestSuite struct {
-	suite.Suite
+	testifysuite.Suite
 
 	coordinator *ibctesting.Coordinator
 
@@ -29,7 +35,7 @@ func (suite *ClientTestSuite) SetupTest() {
 }
 
 func TestClientTestSuite(t *testing.T) {
-	suite.Run(t, new(ClientTestSuite))
+	testifysuite.Run(t, new(ClientTestSuite))
 }
 
 func (suite *ClientTestSuite) TestBeginBlocker() {
@@ -43,63 +49,63 @@ func (suite *ClientTestSuite) TestBeginBlocker() {
 	}
 }
 
-// func (suite *ClientTestSuite) TestBeginBlockerConsensusState() {
-// 	plan := &upgradetypes.Plan{
-// 		Name:   "test",
-// 		Height: suite.chainA.GetContext().BlockHeight() + 1,
-// 	}
-// 	// set upgrade plan in the upgrade store
-// 	store := suite.chainA.GetContext().KVStore(suite.chainA.GetSimApp().GetKey(upgradetypes.StoreKey))
-// 	bz := suite.chainA.App.AppCodec().MustMarshal(plan)
-// 	store.Set(upgradetypes.PlanKey(), bz)
+func (suite *ClientTestSuite) TestBeginBlockerConsensusState() {
+	plan := &upgradetypes.Plan{
+		Name:   "test",
+		Height: suite.chainA.GetContext().BlockHeight() + 1,
+	}
+	// set upgrade plan in the upgrade store
+	store := suite.chainA.GetContext().KVStore(suite.chainA.GetSimApp().GetKey(upgradetypes.StoreKey))
+	bz := suite.chainA.App.AppCodec().MustMarshal(plan)
+	store.Set(upgradetypes.PlanKey(), bz)
 
-// 	nextValsHash := []byte("nextValsHash")
-// 	newCtx := suite.chainA.GetContext().WithBlockHeader(tmproto.Header{
-// 		ChainID:            suite.chainA.ChainID,
-// 		Height:             suite.chainA.GetContext().BlockHeight(),
-// 		NextValidatorsHash: nextValsHash,
-// 	})
+	nextValsHash := []byte("nextValsHash")
+	newCtx := suite.chainA.GetContext().WithBlockHeader(cmtproto.Header{
+		ChainID:            suite.chainA.ChainID,
+		Height:             suite.chainA.GetContext().BlockHeight(),
+		NextValidatorsHash: nextValsHash,
+	})
 
-// 	err := suite.chainA.GetSimApp().UpgradeKeeper.SetUpgradedClient(newCtx, plan.Height, []byte("client state"))
-// 	suite.Require().NoError(err)
+	err := suite.chainA.GetSimApp().UpgradeKeeper.SetUpgradedClient(newCtx, plan.Height, []byte("client state"))
+	suite.Require().NoError(err)
 
-// 	req := abci.RequestBeginBlock{Header: newCtx.BlockHeader()}
-// 	suite.chainA.App.BeginBlock(req)
+	client.BeginBlocker(newCtx, suite.chainA.App.GetIBCKeeper().ClientKeeper)
 
-// 	// plan Height is at ctx.BlockHeight+1
-// 	consState, found := suite.chainA.GetSimApp().UpgradeKeeper.GetUpgradedConsensusState(newCtx, plan.Height)
-// 	suite.Require().True(found)
-// 	bz, err = types.MarshalConsensusState(suite.chainA.App.AppCodec(), &ibctm.ConsensusState{Timestamp: newCtx.BlockTime(), NextValidatorsHash: nextValsHash})
-// 	suite.Require().NoError(err)
-// 	suite.Require().Equal(bz, consState)
-// }
+	// plan Height is at ctx.BlockHeight+1
+	consState, err := suite.chainA.GetSimApp().UpgradeKeeper.GetUpgradedConsensusState(newCtx, plan.Height)
+	suite.Require().NoError(err)
 
-// func (suite *ClientTestSuite) TestBeginBlockerUpgradeEvents() {
-// 	plan := &upgradetypes.Plan{
-// 		Name:   "test",
-// 		Height: suite.chainA.GetContext().BlockHeight() + 1,
-// 	}
-// 	// set upgrade plan in the upgrade store
-// 	store := suite.chainA.GetContext().KVStore(suite.chainA.GetSimApp().GetKey(upgradetypes.StoreKey))
-// 	bz := suite.chainA.App.AppCodec().MustMarshal(plan)
-// 	store.Set(upgradetypes.PlanKey(), bz)
+	bz, err = types.MarshalConsensusState(suite.chainA.App.AppCodec(), &ibctm.ConsensusState{Timestamp: newCtx.BlockTime(), NextValidatorsHash: nextValsHash})
+	suite.Require().NoError(err)
+	suite.Require().Equal(bz, consState)
+}
 
-// 	nextValsHash := []byte("nextValsHash")
-// 	newCtx := suite.chainA.GetContext().WithBlockHeader(tmproto.Header{
-// 		Height:             suite.chainA.GetContext().BlockHeight(),
-// 		NextValidatorsHash: nextValsHash,
-// 	})
+func (suite *ClientTestSuite) TestBeginBlockerUpgradeEvents() {
+	plan := &upgradetypes.Plan{
+		Name:   "test",
+		Height: suite.chainA.GetContext().BlockHeight() + 1,
+	}
+	// set upgrade plan in the upgrade store
+	store := suite.chainA.GetContext().KVStore(suite.chainA.GetSimApp().GetKey(upgradetypes.StoreKey))
+	bz := suite.chainA.App.AppCodec().MustMarshal(plan)
+	store.Set(upgradetypes.PlanKey(), bz)
 
-// 	err := suite.chainA.GetSimApp().UpgradeKeeper.SetUpgradedClient(newCtx, plan.Height, []byte("client state"))
-// 	suite.Require().NoError(err)
+	nextValsHash := []byte("nextValsHash")
+	newCtx := suite.chainA.GetContext().WithBlockHeader(cmtproto.Header{
+		Height:             suite.chainA.GetContext().BlockHeight(),
+		NextValidatorsHash: nextValsHash,
+	})
 
-// 	cacheCtx, writeCache := suite.chainA.GetContext().CacheContext()
+	err := suite.chainA.GetSimApp().UpgradeKeeper.SetUpgradedClient(newCtx, plan.Height, []byte("client state"))
+	suite.Require().NoError(err)
 
-// 	client.BeginBlocker(cacheCtx, suite.chainA.App.GetIBCKeeper().ClientKeeper)
-// 	writeCache()
+	cacheCtx, writeCache := suite.chainA.GetContext().CacheContext()
 
-// 	suite.requireContainsEvent(cacheCtx.EventManager().Events(), types.EventTypeUpgradeChain, true)
-// }
+	client.BeginBlocker(cacheCtx, suite.chainA.App.GetIBCKeeper().ClientKeeper)
+	writeCache()
+
+	suite.requireContainsEvent(cacheCtx.EventManager().Events(), types.EventTypeUpgradeChain, true)
+}
 
 func (suite *ClientTestSuite) TestBeginBlockerUpgradeEventsAbsence() {
 	cacheCtx, writeCache := suite.chainA.GetContext().CacheContext()
