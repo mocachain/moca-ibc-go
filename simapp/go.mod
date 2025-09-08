@@ -249,22 +249,21 @@ require (
 )
 
 replace (
-	cosmossdk.io/api => github.com/zkMeLabs/moca-cosmos-sdk/api v0.0.0-20250805065501-06f5fd3b5975
-	cosmossdk.io/client/v2 => github.com/zkMeLabs/moca-cosmos-sdk/client/v2 v2.0.0-20250805065501-06f5fd3b5975
-	cosmossdk.io/simapp => github.com/zkMeLabs/moca-cosmos-sdk/simapp v0.0.0-20250805065501-06f5fd3b5975
-	cosmossdk.io/store => github.com/zkMeLabs/moca-cosmos-sdk/store v0.0.0-20250805065501-06f5fd3b5975
-	cosmossdk.io/x/circuit => github.com/zkMeLabs/moca-cosmos-sdk/x/circuit v0.0.0-20250805065501-06f5fd3b5975
-	cosmossdk.io/x/evidence => github.com/zkMeLabs/moca-cosmos-sdk/x/evidence v0.0.0-20250805065501-06f5fd3b5975
-	cosmossdk.io/x/feegrant => github.com/zkMeLabs/moca-cosmos-sdk/x/feegrant v0.0.0-20250805065501-06f5fd3b5975
-	cosmossdk.io/x/tx => github.com/zkMeLabs/moca-cosmos-sdk/x/tx v0.0.0-20250805065501-06f5fd3b5975
-	cosmossdk.io/x/upgrade => github.com/zkMeLabs/moca-cosmos-sdk/x/upgrade v0.0.0-20250805065501-06f5fd3b5975
+	cosmossdk.io/api => github.com/MocaFoundation/moca-cosmos-sdk/api v0.0.0-20250908083143-e28da82c630a
+	cosmossdk.io/client/v2 => github.com/MocaFoundation/moca-cosmos-sdk/client/v2 v2.0.0-20250908083143-e28da82c630a
+	cosmossdk.io/simapp => github.com/MocaFoundation/moca-cosmos-sdk/simapp v0.0.0-20250908083143-e28da82c630a
+	cosmossdk.io/store => github.com/MocaFoundation/moca-cosmos-sdk/store v0.0.0-20250908083143-e28da82c630a
+	cosmossdk.io/x/circuit => github.com/MocaFoundation/moca-cosmos-sdk/x/circuit v0.0.0-20250908083143-e28da82c630a
+	cosmossdk.io/x/evidence => github.com/MocaFoundation/moca-cosmos-sdk/x/evidence v0.0.0-20250908083143-e28da82c630a
+	cosmossdk.io/x/feegrant => github.com/MocaFoundation/moca-cosmos-sdk/x/feegrant v0.0.0-20250908083143-e28da82c630a
+	cosmossdk.io/x/tx => github.com/MocaFoundation/moca-cosmos-sdk/x/tx v0.0.0-20250908083143-e28da82c630a
+	cosmossdk.io/x/upgrade => github.com/MocaFoundation/moca-cosmos-sdk/x/upgrade v0.0.0-20250908083143-e28da82c630a
 	github.com/btcsuite/btcd => github.com/btcsuite/btcd v0.22.1
 	github.com/btcsuite/btcd/btcec/v2 => github.com/btcsuite/btcd/btcec/v2 v2.3.2
-	github.com/cometbft/cometbft => github.com/zkMeLabs/moca-cometbft v1.4.2
-	github.com/cometbft/cometbft-db => github.com/zkMeLabs/moca-cometbft-db v0.11.0-alpha.1
-	github.com/cosmos/cosmos-sdk => github.com/zkMeLabs/moca-cosmos-sdk v0.0.0-20250805065501-06f5fd3b5975
-	// github.com/cosmos/gogoproto => github.com/zkMeLabs/gogoproto v1.4.10-moca.1
-	github.com/cosmos/iavl => github.com/zkMeLabs/moca-iavl v1.2.0
+	github.com/cometbft/cometbft => github.com/MocaFoundation/moca-cometbft v1.0.0-alpha.1
+	github.com/cometbft/cometbft-db => github.com/MocaFoundation/moca-cometbft-db v1.0.0-alpha.1
+	github.com/cosmos/cosmos-sdk => github.com/MocaFoundation/moca-cosmos-sdk v1.0.0-alpha.1
+	github.com/cosmos/iavl => github.com/MocaFoundation/moca-iavl v1.0.0-alpha.1
 	// github.com/cosmos/ibc-go/v10 => ./
 	github.com/syndtr/goleveldb => github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7
 )
