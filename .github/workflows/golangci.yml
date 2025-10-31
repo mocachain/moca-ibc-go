@@ -16,7 +16,7 @@ jobs:
     name: lint
     runs-on: depot-ubuntu-22.04-4
     steps:
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v6
         with:
           go-version: '1.23'
       - uses: actions/checkout@v4
