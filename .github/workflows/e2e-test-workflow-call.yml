@@ -89,7 +89,7 @@ jobs:
   docker-build:
     runs-on: depot-ubuntu-22.04-4
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         if: ${{ inputs.build-and-push-docker-image }}
       - name: Log in to the Container registry
         if: ${{ inputs.build-and-push-docker-image }}
@@ -119,7 +119,7 @@ jobs:
   docker-build-wasm:
     runs-on: depot-ubuntu-22.04-4
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         if: ${{ inputs.build-and-push-docker-image-wasm }}
 
       - uses: actions/setup-python@v5
@@ -176,7 +176,7 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           repository: cosmos/ibc-go
       - uses: actions/setup-go@v5
@@ -210,7 +210,7 @@ jobs:
       fail-fast: false
       matrix: ${{ fromJSON(needs.build-test-matrix.outputs.matrix) }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           repository: cosmos/ibc-go
       - uses: actions/setup-go@v5
@@ -257,7 +257,7 @@ jobs:
           - entrypoint: TestConnectionTestSuite
           - entrypoint: TestInterchainAccountsGovTestSuite
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           repository: cosmos/ibc-go
       - uses: actions/setup-go@v5
