@@ -236,17 +236,17 @@ require (
 )
 
 replace (
-	cosmossdk.io/api => github.com/mocachain/moca-cosmos-sdk/api v0.0.0-20250908083143-e28da82c630a
-	cosmossdk.io/simapp => github.com/mocachain/moca-cosmos-sdk/simapp v0.0.0-20250908083143-e28da82c630a
-	cosmossdk.io/store => github.com/mocachain/moca-cosmos-sdk/store v0.0.0-20250908083143-e28da82c630a
-	cosmossdk.io/x/tx => github.com/mocachain/moca-cosmos-sdk/x/tx v0.0.0-20250908083143-e28da82c630a
-	cosmossdk.io/x/upgrade => github.com/mocachain/moca-cosmos-sdk/x/upgrade v0.0.0-20250908083143-e28da82c630a
+	cosmossdk.io/api => github.com/mocachain/moca-cosmos-sdk/api v0.0.0-20260113100747-28c9bb50e4d4
+	cosmossdk.io/simapp => github.com/mocachain/moca-cosmos-sdk/simapp v0.0.0-20260113100747-28c9bb50e4d4
+	cosmossdk.io/store => github.com/mocachain/moca-cosmos-sdk/store v0.0.0-20260113100747-28c9bb50e4d4
+	cosmossdk.io/x/tx => github.com/mocachain/moca-cosmos-sdk/x/tx v0.0.0-20260113100747-28c9bb50e4d4
+	cosmossdk.io/x/upgrade => github.com/mocachain/moca-cosmos-sdk/x/upgrade v0.0.0-20260113100747-28c9bb50e4d4
 	github.com/btcsuite/btcd => github.com/btcsuite/btcd v0.22.1
 	github.com/btcsuite/btcd/btcec/v2 => github.com/btcsuite/btcd/btcec/v2 v2.3.2
-	github.com/cometbft/cometbft => github.com/mocachain/moca-cometbft v1.0.0-alpha.1
-	github.com/cometbft/cometbft-db => github.com/mocachain/moca-cometbft-db v1.0.0-alpha.1
-	github.com/cosmos/cosmos-sdk => github.com/mocachain/moca-cosmos-sdk v1.0.0-alpha.1
-	github.com/cosmos/iavl => github.com/mocachain/moca-iavl v1.0.0-alpha.1
+	github.com/cometbft/cometbft => github.com/mocachain/moca-cometbft v1.1.0
+	github.com/cometbft/cometbft-db => github.com/mocachain/moca-cometbft-db v1.1.0
+	github.com/cosmos/cosmos-sdk => github.com/mocachain/moca-cosmos-sdk v1.1.0
+	github.com/cosmos/iavl => github.com/mocachain/moca-iavl v1.1.0
 	github.com/cosmos/ibc-go/v10 => ./
 	github.com/syndtr/goleveldb => github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7
 )
