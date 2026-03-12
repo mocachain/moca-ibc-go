@@ -100,7 +100,12 @@ func (app *SimApp) prepForZeroHeightGenesis(ctx sdk.Context, jailAllowedAddrs []
 		if err != nil {
 			panic(err)
 		}
-		_, _ = app.DistrKeeper.WithdrawDelegationRewards(ctx, delAddr, valAddr)
+		// Convert ValAddress to AccAddress for WithdrawDelegationRewards
+		valAccAddr, err := sdk.AccAddressFromHexUnsafe(valAddr.String())
+		if err != nil {
+			panic(err)
+		}
+		_, _ = app.DistrKeeper.WithdrawDelegationRewards(ctx, delAddr, valAccAddr)
 	}
 
 	// clear validator slash events
@@ -119,8 +124,13 @@ func (app *SimApp) prepForZeroHeightGenesis(ctx sdk.Context, jailAllowedAddrs []
 		if err != nil {
 			panic(err)
 		}
+		// Convert ValAddress to AccAddress for GetValidatorOutstandingRewardsCoins
+		valAccAddr, err := sdk.AccAddressFromHexUnsafe(valBz.String())
+		if err != nil {
+			panic(err)
+		}
 		// donate any unwithdrawn outstanding reward fraction tokens to the community pool
-		scraps, err := app.DistrKeeper.GetValidatorOutstandingRewardsCoins(ctx, valBz)
+		scraps, err := app.DistrKeeper.GetValidatorOutstandingRewardsCoins(ctx, valAccAddr)
 		if err != nil {
 			panic(err)
 		}
@@ -133,7 +143,7 @@ func (app *SimApp) prepForZeroHeightGenesis(ctx sdk.Context, jailAllowedAddrs []
 			panic(err)
 		}
 
-		if err := app.DistrKeeper.Hooks().AfterValidatorCreated(ctx, valBz); err != nil {
+		if err := app.DistrKeeper.Hooks().AfterValidatorCreated(ctx, valAccAddr); err != nil {
 			panic(err)
 		}
 		return false
@@ -149,11 +159,16 @@ func (app *SimApp) prepForZeroHeightGenesis(ctx sdk.Context, jailAllowedAddrs []
 		if err != nil {
 			panic(err)
 		}
-		err = app.DistrKeeper.Hooks().BeforeDelegationCreated(ctx, delAddr, valAddr)
+		// Convert ValAddress to AccAddress for hooks
+		valAccAddr, err := sdk.AccAddressFromHexUnsafe(valAddr.String())
 		if err != nil {
 			panic(err)
 		}
-		err = app.DistrKeeper.Hooks().AfterDelegationModified(ctx, delAddr, valAddr)
+		err = app.DistrKeeper.Hooks().BeforeDelegationCreated(ctx, delAddr, valAccAddr)
+		if err != nil {
+			panic(err)
+		}
+		err = app.DistrKeeper.Hooks().AfterDelegationModified(ctx, delAddr, valAccAddr)
 		if err != nil {
 			panic(err)
 		}
@@ -201,7 +216,12 @@ func (app *SimApp) prepForZeroHeightGenesis(ctx sdk.Context, jailAllowedAddrs []
 	counter := int16(0)
 
 	for ; iter.Valid(); iter.Next() {
-		addr := sdk.ValAddress(stakingtypes.AddressFromValidatorsKey(iter.Key()))
+		valAddr := sdk.ValAddress(stakingtypes.AddressFromValidatorsKey(iter.Key()))
+		// Convert ValAddress to AccAddress for GetValidator
+		addr, err := sdk.AccAddressFromHexUnsafe(valAddr.String())
+		if err != nil {
+			panic(err)
+		}
 		validator, err := app.StakingKeeper.GetValidator(ctx, addr)
 		if err != nil {
 			panic(errors.New("expected validator, not found"))
