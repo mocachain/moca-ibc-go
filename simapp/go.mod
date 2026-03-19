@@ -268,8 +268,8 @@ replace (
 	github.com/btcsuite/btcd/btcec/v2 => github.com/btcsuite/btcd/btcec/v2 v2.3.4
 	github.com/cometbft/cometbft => github.com/mocachain/moca-cometbft v1.2.0-rc1-f85713e
 	github.com/cometbft/cometbft-db => github.com/mocachain/moca-cometbft-db v1.1.0-rc1-22256c4
-	github.com/cosmos/cosmos-sdk => github.com/mocachain/moca-cosmos-sdk v1.2.0-rc1-66c0054
-	github.com/cosmos/iavl => github.com/mocachain/moca-iavl v1.2.0-rc1-82a95b2
+	github.com/cosmos/cosmos-sdk => github.com/mocachain/moca-cosmos-sdk v1.2.0-rc2-66c0054
+	github.com/cosmos/iavl => github.com/mocachain/moca-iavl v1.2.0-rc1-7d754d4
 	// github.com/cosmos/ibc-go/v10 => ./
 	github.com/syndtr/goleveldb => github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7
 )

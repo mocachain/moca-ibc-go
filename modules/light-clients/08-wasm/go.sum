@@ -917,12 +917,12 @@ github.com/mocachain/moca-cometbft v1.2.0-rc1-f85713e h1:9YCt1N9MCNHYdzCAokBUrhB
 github.com/mocachain/moca-cometbft v1.2.0-rc1-f85713e/go.mod h1:RXKZzgk3b0mBvoWaANTHLtXdKNQ/HfAlbSB5RMkawS4=
 github.com/mocachain/moca-cometbft-db v1.1.0-rc1-22256c4 h1:Q/nKzuF7WvDoPJUznhNXWK5/ZQVuXuSuSw8C1s7OXVI=
 github.com/mocachain/moca-cometbft-db v1.1.0-rc1-22256c4/go.mod h1:GDPJAC/iFHNjmZZPN8V8C1yr/eyityhi2W1hz2MGKSc=
-github.com/mocachain/moca-cosmos-sdk v1.2.0-rc1-66c0054 h1:jxPhtiYK6Bz772gV4rr2VQCCsRx5vfjNxbxdu+ioAzw=
-github.com/mocachain/moca-cosmos-sdk v1.2.0-rc1-66c0054/go.mod h1:XDoBQkrFQO9pemF60qROovBO7wD6+Za7fjnvqOMX0Ik=
+github.com/mocachain/moca-cosmos-sdk v1.2.0-rc2-66c0054 h1:8jPefz+BQ7a7LUtQzUXFNBzuqN1iaSGIrsn2cJJoqSQ=
+github.com/mocachain/moca-cosmos-sdk v1.2.0-rc2-66c0054/go.mod h1:XDoBQkrFQO9pemF60qROovBO7wD6+Za7fjnvqOMX0Ik=
 github.com/mocachain/moca-cosmos-sdk/api v1.1.0-rc1-66c0054 h1:2Bf8NiGayuOa8+F2BVFTu7ZZr/scInL+ydecl2QSIls=
 github.com/mocachain/moca-cosmos-sdk/api v1.1.0-rc1-66c0054/go.mod h1:11Gi2MJ84w0HTJv//TfXBtSzLmljuPKXLjE2UI/xY0c=
-github.com/mocachain/moca-iavl v1.2.0-rc1-82a95b2 h1:wKGPDp62gONc5SXRhIDG83E4gjApVHqshQV/S/AlxVY=
-github.com/mocachain/moca-iavl v1.2.0-rc1-82a95b2/go.mod h1:llfcEJML+85FDrd1XlU6YRa7tFnyPYK/T04iOSXe+1I=
+github.com/mocachain/moca-iavl v1.2.0-rc1-7d754d4 h1:9tA9gd5Wot8SPYCf9UaIav3rCJJIsrHxIxSc76+2e2Y=
+github.com/mocachain/moca-iavl v1.2.0-rc1-7d754d4/go.mod h1:llfcEJML+85FDrd1XlU6YRa7tFnyPYK/T04iOSXe+1I=
 github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421/go.mod h1:6dJC0mAP4ikYIbvyc7fijjWJddQyLn8Ig3JB5CqoB9Q=
 github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd h1:TRLaZ9cD/w8PVh93nsPXa1VrQ6jlwL5oN8l14QlcNfg=
 github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd/go.mod h1:6dJC0mAP4ikYIbvyc7fijjWJddQyLn8Ig3JB5CqoB9Q=
