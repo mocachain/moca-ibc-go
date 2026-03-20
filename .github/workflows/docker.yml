@@ -28,7 +28,7 @@ jobs:
         images: ${{ env.REGISTRY }}/cosmos/${{ env.IMAGE_NAME }}
 
     - name: Build Docker image
-      uses: docker/build-push-action@ca877d9245402d1537745e0e356eab47c3520991
+      uses: docker/build-push-action@d08e5c354a6adb9ed34480a06d141179aa583294
       with:
         context: .
         tags: ${{ steps.meta.outputs.tags }}
@@ -46,7 +46,7 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Push Docker image
-      uses: docker/build-push-action@ca877d9245402d1537745e0e356eab47c3520991
+      uses: docker/build-push-action@d08e5c354a6adb9ed34480a06d141179aa583294
       with:
         context: .
         push: true
