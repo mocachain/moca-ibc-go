@@ -21,7 +21,7 @@ require (
 	github.com/cosmos/cosmos-sdk v0.50.13
 	github.com/cosmos/gogoproto v1.7.2
 	github.com/cosmos/ibc-go/v10 v10.0.0
-	github.com/spf13/cast v1.8.0
+	github.com/spf13/cast v1.10.0
 	github.com/spf13/cobra v1.8.1
 	github.com/spf13/viper v1.20.0
 	github.com/stretchr/testify v1.10.0
