@@ -337,11 +337,9 @@ func NewSimApp(
 		Example of setting gov params:
 		govConfig.MaxMetadataLen = 10000
 	*/
-	// Create a nil CrossChainKeeper for testing (not used in this test app)
-	var crossChainKeeper govtypes.CrossChainKeeper = nil
 	govKeeper := govkeeper.NewKeeper(
 		appCodec, runtime.NewKVStoreService(keys[govtypes.StoreKey]), app.AccountKeeper, app.BankKeeper,
-		app.StakingKeeper, crossChainKeeper, app.DistrKeeper, app.MsgServiceRouter(), govConfig, authtypes.NewModuleAddress(govtypes.ModuleName).String(),
+		app.StakingKeeper, app.DistrKeeper, app.MsgServiceRouter(), govConfig, authtypes.NewModuleAddress(govtypes.ModuleName).String(),
 	)
 
 	app.GovKeeper = *govKeeper.SetHooks(
