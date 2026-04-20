@@ -40,8 +40,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/version"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/auth/ante"
-
-	// authcodec "github.com/cosmos/cosmos-sdk/x/auth/codec"
 	authkeeper "github.com/cosmos/cosmos-sdk/x/auth/keeper"
 	"github.com/cosmos/cosmos-sdk/x/auth/posthandler"
 	authsims "github.com/cosmos/cosmos-sdk/x/auth/simulation"
@@ -197,14 +195,7 @@ func NewSimApp(
 ) *SimApp {
 	interfaceRegistry, _ := types.NewInterfaceRegistryWithOptions(types.InterfaceRegistryOptions{
 		ProtoFiles:     proto.HybridResolver,
-		SigningOptions: signing.Options{
-			// AddressCodec: address.Bech32Codec{
-			// 	Bech32Prefix: sdk.GetConfig().GetBech32AccountAddrPrefix(),
-			// },
-			// ValidatorAddressCodec: address.Bech32Codec{
-			// 	Bech32Prefix: sdk.GetConfig().GetBech32ValidatorAddrPrefix(),
-			// },
-		},
+		SigningOptions: signing.Options{},
 	})
 	appCodec := codec.NewProtoCodec(interfaceRegistry)
 	legacyAmino := codec.NewLegacyAmino()
